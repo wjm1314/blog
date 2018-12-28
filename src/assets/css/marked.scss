@@ -1,0 +1,36 @@
+blockquote {
+  margin-top: 1.25rem;
+  border-left: 0.1875rem solid rgb(129, 216, 208);
+  padding: 0 0.625rem;
+  background: rgba(204, 204, 204, 0.5);
+}
+ul, ol{
+  margin-top: 0;
+  margin-bottom: -2rem;
+  padding-left: 1.25rem;
+  line-height: 1.125rem;
+}
+
+img:not(.bgImage) {
+  border: 1px solid #ccc;
+}
+code {
+  color: rgb(147, 240, 216);
+  background: rgb(71, 73,73);
+  font-family: Consolas;
+  padding: 0 0.3125rem;
+  border-radius: 0.3125rem;
+  overflow-x: auto;
+}
+hr {
+  margin: 0.625rem 0 0;
+}
+pre {
+  padding: 0.625rem 0.625rem;
+  background:  rgb(71, 73,73);
+  border-radius: 0.3125rem;
+  overflow-x: auto;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.625rem;
+}

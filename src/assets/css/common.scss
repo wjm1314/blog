@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+  font-size: 16px;
+}
+body {
+  height: 100%;
+  font-family: "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", serif;
+}
+a {
+  text-decoration: none;
+  color: #55ffff;
+}
+button {
+  height: 2.5rem;
+  border: none;
+  outline: none;
+  color: #00193a;
+  background: rgb(129, 216, 208);
+  margin-top: 1.875rem;
+  padding-left: 0.4375rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: 0.5s;
+  font-size: 0.875rem;
+  span {
+    display: inline-block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    position: relative;
+    transition: 0.5s;
+  }
+  &:hover span {
+    padding-right: 0.625rem;
+    transition: 0.5s;
+  }
+  span:after {
+    content: '\00bb';
+    opacity: 0;
+    transition: 0.5s;
+    font-size: 1.25rem;
+    position: relative;
+    right: 0;
+  }
+  &:hover span:after{
+    opacity: 1;
+    right: -0.5rem;
+  }
+}
+.hashTitle {
+  color: white;
+}
+
+ h2, h3, h4, h5, h6 {
+  padding-top: 0.8rem;
+  color: #F0F0F0;
+}
+
+
+@media screen and (max-width: 400px) {
+  html {font-size: 18px;}
+}
+
+@media screen and (max-width: 360px) {
+  html {font-size: 17px;}
+}
+
+@media screen and (max-width: 320px) {
+  html {font-size: 16px;}
+}
+

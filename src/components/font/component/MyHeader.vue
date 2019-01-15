@@ -11,11 +11,12 @@
           <router-link to="/articles" tag="li">博客</router-link>
           <router-link to="/contact" tag="li">联系站长</router-link>
           <router-link to="/about" tag="li">关于我</router-link>
+          <router-link :to="{name: 'login'}" tag="li">站长登录</router-link>
         </ul>
       </nav>
     </div>
     <div class="container">
-      <img src="../../../../static/sunset.jpg" alt="bgimg" class="bgImage">
+      <img src="../../../../static/博客背景.jpg" alt="bgimg" class="bgImage">
       <div id="title" :class="headline.animation">{{headline.content}}</div>
     </div>
   </div>
@@ -52,7 +53,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap-reverse;
-    background: rgba(204, 204, 204, 0.5);
+    /*background: rgba(204, 204, 204, 0.5);*/
+    background: #2D5878;
     width: 100%;
   .search {
     margin-top: 0.55rem;

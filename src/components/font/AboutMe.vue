@@ -30,7 +30,7 @@
   #contact {
     min-height: 30rem;
     padding: 0 1rem 5rem;
-    background: rgba(55, 57, 65, 0.2);
+    background: #fff;
   .title {
   p.headline {
     width: 13rem;
@@ -41,7 +41,8 @@
     width: 55%;
     margin: 6.875rem auto 0;
     padding-bottom: 2rem;
-    border: 0.1875rem solid rgb(129, 216, 208);
+    /*border: 0.1875rem solid rgb(129, 216, 208);*/
+    border: 0.1875rem solid rgba(0,0,0,0.3);
     transition: all 2s;
   &:hover {
      background: rgb(0, 194, 169);
@@ -63,7 +64,7 @@
   p {
     display: inline-block;
     font-size: 1.25rem;
-    color: #fff;
+    color: #000;
     margin-bottom: 1.5625rem;
   }
   .left {
@@ -79,7 +80,7 @@
     padding-top: 4.375rem;
     margin: 0 auto 1.25rem;
     text-align: center;
-    color: #fff;
+    color: #000;
     font-size: 2rem;
     padding-bottom: 1.25rem;
     border-bottom: 0.3125rem double rgb(129, 216, 208);

@@ -111,7 +111,7 @@
     border: none;
     border-bottom: 0.1875rem solid rgb(129, 216, 208);
     background: transparent;
-    color: #fff;
+    color: #000;
     font-size: 1rem;
     padding-left: 0.625rem;
   &:focus + i {

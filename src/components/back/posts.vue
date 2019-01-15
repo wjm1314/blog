@@ -44,7 +44,7 @@
     position: relative;
     padding-top: 0.625rem;
     /*height: 35.625rem;*/
-    color: #ffffff;
+    color: #000;
   p {
     border-bottom: 0.1875rem double rgb(129, 216, 208);
     width: 12.5rem;

@@ -26,7 +26,7 @@
     },
     methods: {
       handleScroll() {
-        this.show = window.scrollY > 400;
+        this.show = window.scrollY > 200;
       }
     },
     components: {
@@ -42,7 +42,7 @@
   }
   .icon-huojian {
     font-size: 2.5rem;
-    color: #C0CCDA;
+    color: black;
     position: fixed;
     bottom: 1.25rem;
     right: 2.5rem;
@@ -51,7 +51,9 @@
   }
   .icon-huojian:hover {
     bottom: 1.875rem;
-    color: #00ff7f;
+    /*color: #00ff7f;*/
+    color: red;
+    transform: scale(1.3);
     transition: 1s;
   }
 </style>

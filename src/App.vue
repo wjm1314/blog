@@ -41,11 +41,11 @@
     overflow: hidden;
     width: 100%;
     min-height: 100%;
-    background: #000;
+    background: #fff;
   }
   @media screen and (max-width: 440px) {
     #app {
-      background: #000;
+      background: #fff;
     }
   }
 </style>

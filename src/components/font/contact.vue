@@ -38,7 +38,8 @@
 <style lang="scss" rel="stylesheet/scss" scoped>
   .contact {
     min-height: 30rem;
-    background: rgba(55, 57, 65, 0.2);
+    /*background: rgba(55, 57, 65, 0.2);*/
+    background: rgb(255,255,255);
     padding: 2rem 1rem 2rem;
   .title {
     padding-top: 3.125rem;
@@ -51,9 +52,9 @@
     width: 40%;
     margin: 2rem auto 0;
   input {
-    color: #ffffff;
+    color: #000;
     font-size: 1.125rem;
-    border: 0.125rem solid rgb(129, 216, 208);
+    border: 0.125rem solid rgba(0,0,0,0.3);
     width: 70%;
     height: 1.5625rem;
     margin-bottom: 1.25rem;
@@ -61,9 +62,9 @@
     background: transparent;
   }
   textarea {
-    color: #ffffff;
+    color: #000;
     font-size: 1.125rem;
-    border: 0.125rem solid rgb(129, 216, 208);
+    border: 0.125rem solid rgba(0,0,0,0.3);
     width: 100%;
     height: 15rem;
     resize: none;
@@ -80,7 +81,7 @@
   p.headline {
     margin: 0 auto 0;
     text-align: center;
-    color: #fff;
+    color: #000;
     font-size: 2rem;
     padding-bottom: 1.25rem;
     border-bottom: 0.3125rem double rgb(129, 216, 208);

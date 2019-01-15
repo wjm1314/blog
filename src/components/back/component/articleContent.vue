@@ -88,7 +88,7 @@
     color: darkturquoise;
   }
   tbody {
-    color: #ffffff;
+    color: #000;
   }
   tr {
     height: 2.5rem;

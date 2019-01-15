@@ -12,6 +12,9 @@
       </div>
       <p>{{info}}</p>
       <button @click="confirm(name,password)"><span>登录</span></button>
+      <button>
+        <router-link :to="{name: 'home'}" tag="span">返回主页</router-link>
+      </button>
     </div>
   </div>
 </template>
@@ -79,7 +82,7 @@
     border: none;
     border-bottom: 0.1875rem solid darkturquoise;
     background: transparent;
-    color: #fff;
+    color: #000;
     font-size: 1rem;
     padding-left: 0.625rem;
   &:focus + i {

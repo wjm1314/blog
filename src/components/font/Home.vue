@@ -87,7 +87,8 @@
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
   .container {
-    background: rgba(55, 57, 65, 0.2);
+    /*background: rgba(55, 57, 65, 0.2);*/
+  background: #fff;
   .newBlog {
     min-height: 43.75rem;
   .title {
@@ -100,7 +101,7 @@
   .posts {
     margin-top:1rem;
   .flex {
-    color: #fff;
+    color: #000;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -148,7 +149,7 @@
     padding-bottom: 2rem;
     min-height: 30rem;
   .title {
-    color: white;
+    color: black;
     margin-bottom: 3.75rem;
   p {
     padding-top: 2.8125rem;
@@ -159,9 +160,10 @@
     margin: 3.125rem auto 0;
     width: 40%;
   input {
-    color: #ffffff;
+    color: #000;
     font-size: 1.125rem;
-    border: 0.125rem solid rgb(129, 216, 208);
+    /*border: 0.125rem solid rgb(129, 216, 208);*/
+    border: 0.125rem solid rgba(0,0,0,0.3);
     width: 70%;
     height: 1.5625rem;
     margin-bottom: 1.25rem;
@@ -169,9 +171,10 @@
     background: transparent;
   }
   textarea {
-    color: #ffffff;
+    color: #000;
     font-size: 1.125rem;
-    border: 0.125rem solid rgb(129, 216, 208);
+    /*border: 0.125rem solid rgb(129, 216, 208);*/
+    border: 0.125rem solid rgba(0,0,0,0.3);
     width: 100%;
     height: 15rem;
     resize: none;
@@ -191,13 +194,13 @@
     padding-top: 4.375rem;
     margin: 0 auto 2.25rem;
     text-align: center;
-    color: #fff;
+    color: #000;
     font-size: 2rem;
     padding-bottom: 1.25rem;
     border-bottom: 0.3125rem double rgb(129, 216, 208);
   }
   .commentNumber {
-    color: #ffffff;
+    color: #000;
     font-size: 1.25rem;
   i {
     font-size: 1.25rem;

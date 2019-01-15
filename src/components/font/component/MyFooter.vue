@@ -35,7 +35,8 @@
     padding-top: 0.625rem;
     line-height: 2.5rem;
     width: 100%;
-    background: rgba(55,57,65,0.5);
+    /*background: rgba(55,57,65,0.5);*/
+    background: #2D5878;
   }
   p {
     text-align: center;

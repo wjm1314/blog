@@ -85,7 +85,7 @@
     border-radius: 1.875rem;
     outline: none;
     text-align: center;
-    color: #ffffff;
+    color: #000;
     background: transparent;
   }
   i {
@@ -101,7 +101,7 @@
   }
   }
   .searchString {
-    color: #fff;
+    color: #000;
     font-size: 1.25rem;
     margin-bottom: 4.375rem;
   input {
@@ -120,7 +120,7 @@
     font-size: 1.875rem;
     margin:0 auto 2.5rem;
     padding-bottom: 0.625rem;
-    color: #ffffff;
+    color: #000;
   }
   }
   @media screen and (max-width: 440px) {

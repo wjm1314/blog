@@ -59,6 +59,7 @@
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
   .articleContent {
+    background: #fff;
   #articles {
     padding: 1.875rem 12.5rem 0;
   .tags {
@@ -68,13 +69,13 @@
     justify-content: space-around;
   .activeBtn {
     background: #ffc520;
-    color: #ffffff;
+    color: #000;
     transition:  1s;
   }
   button {
     transition:  1s;
     padding-left: 1rem;
-    padding-right: 0.2rem;
+    padding-right: 1rem;
     text-align: center;
     background: rgb(129, 216, 208);
     color: #00193a;
@@ -83,7 +84,7 @@
   }
   }
   div#article {
-    color: #fff;
+    color: #000;
     width: 100%;
     border-bottom: 0.125rem solid rgb(129, 216, 208);
   h2 {
@@ -114,14 +115,14 @@
     margin-right: 0.625rem;
   }
   .commentNumber {
-    color: #ffffff;
+    color: #000;
   i {
     font-size: 1.125rem;
     margin-right: 0.3125rem;
   }
   }
   i.icon-label, i.icon-shijian {
-    color: #ffffff;
+    color: #000;
     font-size: 1.25rem;
     margin-right: 0.3125rem;
   }
@@ -130,8 +131,9 @@
     width: 100%;
     height: 1.5rem;
     line-height: 1.5rem;
-    color: #ffffff;
+    color: #000;
     margin-top: 1.875rem;
+    /*padding-bottom:1.875rem;*/
     margin-bottom: 1.875rem;
     text-align: center;
   }

@@ -90,9 +90,6 @@ router.get('/articles',(req,res) => {
         res.send(articles);
       })
     })
-    /*DB.find('articles',{tags: value,isPublish:true},function (err,articles) {
-      res.send(articles);
-    },limit,skip)*/
   }else {
     DB.__connectDb(function (db) {
       var result = db.collection('articles').find({isPublish:true}).sort({date: -1}).limit(limit).skip(skip);

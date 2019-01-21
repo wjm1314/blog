@@ -12,7 +12,7 @@ const endLoading = (commit,startTime,toggle) => {
 }
 export default {
   login({commit},payload) {
-    console.log('fafa');
+    //console.log('fafa');
     return axios.post('/api/login',payload).catch((err) => {
       console.log(err);
     })

@@ -12,10 +12,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "express-session": "^1.15.6",
     "mongodb": "^3.1.10"
   },
   "devDependencies": {
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
     "jsonwebtoken": "^8.4.0",
     "nodemailer": "^4.7.0"
   }

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Store from '../store/index'
 import Router from 'vue-router'
 
 const index = resolve => require(['@/components/font/index.vue'],resolve)
@@ -18,7 +19,7 @@ const SearchResult = resolve => require(['@/components/font/SearchResult'],resol
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   mode: 'history',
   routes: [
     {
@@ -108,3 +109,18 @@ export default new Router({
     }
   ]
 })
+
+/*当一个导航触发时，全局前置守卫按照创建顺序调用*/
+router.beforeEach((to, from, next) => {
+  if(to.meta.requireAuth) {
+    if(window.localStorage.getItem('token')) {
+      next();
+    }else {
+      next('/login');
+    }
+  }else {
+    next();
+  }
+})
+
+export default router;

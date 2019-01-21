@@ -36,7 +36,7 @@
           this.info = '正在登录中...';
           //console.log(res);
           this.set_user(res.data);
-          this.$router.push({name: 'posts'})
+          this.$router.push({name: 'posts'});
         }).catch((err) => {
           console.log(err);
           this.info = '登录失败，请重新登录'

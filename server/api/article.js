@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const DB = require('../db/db_basic');
 const mail = require('../email')
-//const confirmToken = require('../middlewares/confirmToken')
 const ObjectID = require('mongodb').ObjectID;
+const md5 = require('md5-node');
+const crypto = require('crypto'); //node自带的加密模块
 
 const emailForm = (title, name, otherName, message, content, url) => {
   let string = `
@@ -357,12 +358,12 @@ router.patch('/comments/:id',(req,res) => {
 //后台
 //登录
 router.post('/login',(req,res) => {
-  //console.log('req: '+req);
   var name = req.body.name;
   var password = req.body.password;
-  //console.log('name: '+ name);
+  let md5 = crypto.createHash('md5');
+  let secretPassword = md5.update(password).digest('hex');
   DB.__connectDb(function (db) {
-    db.collection('users').findOne({name: name,password: password},(err,doc) => {
+    db.collection('users').findOne({name: name,password: secretPassword},(err,doc) => {
       if(err) {
         console.log(err);
       }else {
@@ -377,9 +378,12 @@ router.post('/login',(req,res) => {
 })
 //修改账户
 router.post('/user',(req,res) => {
+  let password = req.body.password;
+  let md5 = crypto.createHash('md5');
+  let secretPassword = md5.update(password).digest('hex');
   const user = {
     name: req.body.name,
-    password: req.body.password
+    password: secretPassword
   }
   DB.__connectDb(function (db) {
     db.collection('users').updateOne({id: req.body.id},{$set:user},(err) => {

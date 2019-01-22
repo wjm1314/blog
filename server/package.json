@@ -18,6 +18,7 @@
     "cookie-parser": "^1.4.3",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.4.0",
+    "md5-node": "^1.0.1",
     "nodemailer": "^4.7.0"
   }
 }

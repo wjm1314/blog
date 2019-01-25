@@ -72,7 +72,7 @@
     border-bottom: 0.125rem solid rgb(129, 216, 208);
     outline: none;
     background: transparent;
-    color: #ffffff;
+    color: #000;
     margin-bottom: 0.625rem;
     margin-right: 0.3125rem;
     text-align: center;

@@ -34,6 +34,9 @@
         }
       }
     },
+    computed: {
+      ...mapState(['articles'])
+    },
     components: {
       ArticleContent
     }

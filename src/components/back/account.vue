@@ -2,7 +2,7 @@
   <div class="account">
     <p class="icon"><i class="iconfont icon-icon69"></i></p>
     <div>
-      <input type="text" placeholder="请输入新的用户名" v-model="name">
+      <input type="text" placeholder="请输入新的用户名" v-model="name" @click="checkName">
       <i class="iconfont icon-zhanghu"></i>
     </div>
     <div>
@@ -35,6 +35,11 @@
     },
     methods: {
       ...mapActions(['resetUser']),
+      checkName () {
+        if (this.name.length > 5) {
+          this.msg = '请输入合适长度的用户名'
+        }
+      },
       reset() {
         if(this.repassword === this.password) {
           this.resetUser({id:this.user.id,name:this.name,password:this.password})

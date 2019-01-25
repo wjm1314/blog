@@ -18,20 +18,6 @@
         </div>
       </div>
     </section>
-    <section class="contact">
-      <a href="#contactMe" class="title animated bounceIn">
-        <p class="headline" id="contactMe">Contact me</p>
-      </a>
-      <div class="email animated fadeIn">
-        <input type="text" placeholder="邮件主题" v-model="subject">
-        <input type="text" placeholder="发件人邮箱" v-model="address">
-        <input type="text" placeholder="收件人邮箱" v-model="address1">
-        <textarea placeholder="来唠唠嗑呗" spellcheck="false" v-model="content"></textarea>
-        <button class="sendEmail" @click="send" :disabled="sendFlag">
-          <span>{{sendFlag ? '发送中...' : '确认'}}</span>
-        </button>
-      </div>
-    </section>
   </div>
 </template>
 <script>
@@ -39,11 +25,7 @@
   export default {
     data() {
       return {
-        subject: '',
-        address: '',
-        address1: '',
-        content: '',
-        sendFlag: false
+
       }
     },
     created() {
@@ -57,33 +39,10 @@
       ...mapGetters(['reducedArticles'])
     },
     methods: {
-      ...mapMutations(['set_headline','set_dialog']),
-      ...mapActions(['getAllArticles','sendMail']),
-      send() {
-        this.sendFlag = true;
-        this.sendMail({
-          subject: this.subject,
-          address: this.address,
-          address1: this.address1,
-          content: this.content
-        }).then(() => {
-          this.subject = '';
-          this.address = '';
-          this.address1 = '';
-          this.content = '';
-          this.sendFlag = false;
-          alert('邮件发送成功!');
-        }).catch(() => {
-          this.sendFlag = false;
-          this.set_dialog({
-            info: 'sorry,邮件发送失败，请重新发送',
-            hasTwoBtn: false,
-            show: true
-          })
-        })
-      }
-    }
+      ...mapMutations(['set_headline']),
+      ...mapActions(['getAllArticles'])
   }
+}
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
   .container {

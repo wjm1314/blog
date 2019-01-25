@@ -109,12 +109,12 @@
     padding: 1.875rem 15.625rem 0;
     position: relative;
     min-height: 43.75rem;
-    color: #c0ccda;
+    color: #000;
   #content {
   h1 {
     text-align: center;
     margin-bottom: 1.25rem;
-    color: #F0F0F0;
+    color: #000;
   }
   .content {
     min-height: 31.25rem;
@@ -127,17 +127,17 @@
   .appendInfo {
     text-align: right;
   time {
-    color: #F0F0F0;
+    color: #000;
     display: inline-block;
   }
   span {
-    color: #F0F0F0;
+    color: #000;
     display: inline-block;
     margin-left: 0.625rem;
   }
   a.commentCount {
     display: inline-block;
-    color: #ffffff;
+    color: #000;
     cursor: pointer;
     margin-left: 0.625rem;
   &:hover {
@@ -154,7 +154,7 @@
   .indexes {
     margin-top: 3.125rem;
   .last {
-    color: #fff;
+    color: #000;
     font-size: 1.25rem;
     width: 100%;
     display: flex;
@@ -174,7 +174,7 @@
   p {
     flex-grow: 1;
     cursor: pointer;
-    color: #c0ccda;
+    color: #000;
     display: inline-block;
     padding: 0 0.625rem;
     transition: 1s;
@@ -201,7 +201,7 @@
   }
   }
   i.icon-fanhui {
-    color: #C0CCDA;
+    color: #000;
     font-size: 1.875rem;
     position: absolute;
     bottom: 1.25rem;

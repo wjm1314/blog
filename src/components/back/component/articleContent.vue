@@ -65,7 +65,6 @@
           this.dialog.rejectFn = reject;
         }).then(() => {
           this.delArticle({aid:aid,page:this.page,route:this.$route})
-          console.log('删除文章')
         }).catch((err) => {
           console.log(err);
         })

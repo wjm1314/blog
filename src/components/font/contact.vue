@@ -4,9 +4,10 @@
       <p class="headline" id="callMe">Contact me</p>
     </a>
     <div class="email animated fadeIn">
-      <input type="text" placeholder=" 邮件主题" v-model="subject"/>
-      <input type="text" placeholder=" 邮箱" v-model="address"/>
-      <textarea placeholder=" 来唠唠嗑呗" spellcheck="false" v-model="content"></textarea>
+      <input type="text" placeholder="邮件主题" v-model="subject">
+      <input type="text" placeholder="发件人邮箱" v-model="address">
+      <input type="text" placeholder="收件人邮箱" v-model="address1">
+      <textarea placeholder="来唠唠嗑呗" spellcheck="false" v-model="content"></textarea>
       <button class="sendEmail" @click="send" :disabled="sendFlag">
         <span>{{sendFlag ? '发送中...' : '确认'}}</span>
       </button>
@@ -14,7 +15,7 @@
   </div>
 </template>
 <script>
-  import {mapMutations} from 'vuex'
+  import {mapMutations,mapActions} from 'vuex'
   export default {
     data() {
       return {
@@ -31,7 +32,47 @@
       })
     },
     methods: {
-      ...mapMutations(['set_headline'])
+      ...mapMutations(['set_headline','set_dialog']),
+      ...mapActions(['sendMail']),
+      send() {
+        const re = /^[\w_-]+@[\w_-]+\.[\w\\.]+$/
+        if (!this.subject || !this.content) {
+          this.set_dialog({
+            info: '还有选项没填(⊙o⊙)？',
+            hasTwoBtn: false,
+            show: true
+          })
+          return
+        } else if (!re.test(this.address) || !re.test(this.address1)) {
+          this.set_dialog({
+            info: '请正确填写邮箱地址',
+            hasTwoBtn: false,
+            show: true
+          })
+          return
+        }
+        this.sendFlag = true;
+        this.sendMail({
+          subject: this.subject,
+          address: this.address,
+          address1: this.address1,
+          content: this.content
+        }).then(() => {
+          this.subject = '';
+          this.address = '';
+          this.address1 = '';
+          this.content = '';
+          this.sendFlag = false;
+          alert('邮件发送成功!');
+        }).catch(() => {
+          this.sendFlag = false;
+          this.set_dialog({
+            info: 'sorry,邮件发送失败，请重新发送',
+            hasTwoBtn: false,
+            show: true
+          })
+        })
+      }
     }
   }
 </script>

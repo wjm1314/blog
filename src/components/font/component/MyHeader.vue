@@ -23,7 +23,6 @@
 </template>
 <script>
   import {mapState,mapActions} from 'vuex'
-  //import {mapState} from 'vuex'
   export default {
     data() {
       return {
@@ -34,7 +33,6 @@
       ...mapState(['headline'])
     },
     methods: {
-      //...mapActions(['searchArticles']),
       search() {
           this.$router.push({name:'SearchResult',params: {text: this.text},hash:'#search'})
       }

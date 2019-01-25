@@ -49,7 +49,6 @@
     },
     created() {
       const aid = this.$route.query.aid;
-      console.log('aid: '+aid);
       this.isSaving_toggle(false);
       if(aid) {
         return this.getArticle(aid);
@@ -66,6 +65,13 @@
           this.isMarked = !this.isMarked
         }
       })
+    },
+    updated () {
+      // 切换预览模式，也会触发数据更新，所以不用beforeUpdate, 而用watch监听数据变化
+      if (this.firstUpdate) {
+        this.isChange = false
+      }
+      this.firstUpdate = false
     },
     computed: {
       ...mapState(['article','isSaving','dialog']),
@@ -90,6 +96,40 @@
     },
     components: {
       TagInput
+    },
+    watch: {
+      title () {
+        this.isChange = true
+      },
+      tags () {
+        this.isChange = true
+      },
+      mdContent () {
+        this.isChange = true
+        setTimeout(() => {         // 按下tab键后重新获得焦点
+          document.getElementById('editor').focus()
+        }, 0)
+      }
+    },
+    beforeRouteLeave (to, from, next) {
+      if (this.isChange && !this.isSaving) {
+        this.set_dialog({
+          info: '还没保存，确认离开(⊙o⊙)？',
+          hasTwoBtn: true,
+          show: true
+        })
+        new Promise((resolve, reject) => {
+          this.dialog.resolveFn = resolve
+          this.dialog.rejectFn = reject
+        }).then(
+          () => { next() },
+          () => { next(false) }
+        ).catch((err) => {
+          console.log(err)
+        })
+      } else {
+        next()
+      }
     }
   }
 </script>
@@ -102,7 +142,7 @@
     border-bottom: 0.125rem solid rgb(129, 216, 208);
     outline: none;
     background: transparent;
-    color: #ffffff;
+    color: #000;
     margin-bottom: 0.625rem;
     text-align: center;
   }
@@ -124,7 +164,7 @@
     position: relative;
     height: 29.375rem;
   .right {
-    color: #ffffff;
+    color: #000;
     position: absolute;
     right: -0.125rem;
     top: -2rem;
@@ -154,13 +194,13 @@
     overflow-y: auto;
     white-space: pre-wrap;
     font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑",  STXihei, "华文细黑",  serif;
-    color: #E5E9F2;
+    color: #000;
   }
   .preview {
     font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑",  STXihei, "华文细黑",  serif;
     display: block;
     height: 26.875rem;
-    color: #ffffff;
+    color: #000;
     font-size: 1rem;
     overflow-y: auto;
     padding: 1.25rem 1.25rem;
@@ -174,8 +214,8 @@
   .publish {
     width: 6.25rem;
     position: fixed;
-    left: 1rem;
-    bottom: 32.5rem;
+    right: 1rem;
+    bottom: 2.5rem;
     background: rgb(129, 216, 208);
     color: #000;
   }

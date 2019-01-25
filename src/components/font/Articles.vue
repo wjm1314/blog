@@ -46,6 +46,13 @@
       ...mapGetters(['reducedArticles','allTags']),
       ...mapState(['curTag','loadMore','moreArticles','isLoading','moMore'])
     },
+    mounted() {
+      window.addEventListener("scroll",this.handleScroll);
+    },
+    beforeRouteLeave(to,from,next) {
+      window.removeEventListener("scroll",this.handleScroll);
+      next();
+    },
     methods: {
       ...mapMutations(['set_headline'],['set_curtag']),
       ...mapActions(['getAllArticles','getAllTags']),
@@ -53,6 +60,20 @@
         this.getAllArticles(payload);
         this.selectIndex = index;
         this.set_curtag(tag);
+      },
+      handleScroll () {
+        if (!this.isLoading && this.$route.name === 'articles') {
+          const body = document.body
+          const totalHeight = body.scrollHeight
+          const scrollTop = body.scrollTop
+          const clientHeight = window.innerHeight
+          if (totalHeight - scrollTop - clientHeight === 0 && this.moreArticle) {
+            this.getAllArticles({value: this.curTag, add: true, page: ++this.page})
+          }
+          if (!this.moreArticle) {
+            this.page = 1
+          }
+        }
       }
     }
   }

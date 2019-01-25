@@ -7,7 +7,6 @@
       <ul class="catalog" v-show="showList" key="catalog">
         <li :class="'level-' + title.level"
             v-for="(title,index) in articleList"
-            @click="scrollBorder"
             key="index">
           <a :href="'#' + title.content" data-scroll>{{title.content}}</a>
         </li>
@@ -23,19 +22,35 @@
         showList: true
       }
     },
+    mounted () {
+      window.addEventListener('scroll', this.handleScroll)
+    },
+    beforeDestroy () {
+      window.removeEventListener('scroll', this.handleScroll)
+    },
     computed: {
       ...mapGetters(['articleList'])
     },
     methods: {
-      scrollBorder (e) {
-
+      handleScroll () {
+        if (this.$route.name === 'article') {
+          const listDiv = document.getElementById('list')
+          const topHeight = document.getElementById('nav').clientHeight
+          if (window.scrollY > topHeight) {
+            listDiv.style.position = 'fixed'
+            listDiv.style.top = 0
+          } else {
+            listDiv.style.position = 'absolute'
+            listDiv.style.top = 40 + 'px'
+          }
+        }
       }
     }
   }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
   #list {
-    color: #F0F0F0;
+    color: #000;
     left: 0.3125rem;
     top: 2.5rem;
     text-align: left;
@@ -46,15 +61,15 @@
     position: absolute;
     left: 1.25rem;
     top: 0.625rem;
-    color: #ffffff;
+    color: #000;
     font-size: 1.25rem;
     cursor: pointer;
   }
-  i.icon-icon13 {
+  i.icon-icon3 {
     position: absolute;
     right: -0.9375rem;
     top: 0.3125rem;
-    color: #fff;
+    color: #000;
     font-size: 0.9375rem;
     font-weight: bolder;
     cursor: pointer;
@@ -72,26 +87,26 @@
     transition: 1s;
   }
   p.summary {
-    color: white;
+    color: #000;
     font-size: 1.25rem;
     font-weight: bold;
     height: 2rem;
     margin-left: 0.625rem;
   }
   .catalog {
-    border-left: 0.1875rem solid #cccccc;
+    border-left: 0.1875rem solid #000;
     padding-left: 1.5625rem;
   li {
     min-height: 1.875rem;
     list-style-type: circle;
   a {
-    color: #F0F0F0;
+    color: #000;
     display: block;
     padding: 0.375rem 0 0.375rem 0;
     font-size: 1rem;
     cursor: pointer;
   &:hover {
-     color: #00ff7f;
+     color: orange;
    }
   }
   }

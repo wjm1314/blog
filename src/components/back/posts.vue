@@ -13,7 +13,6 @@
   export default {
     name: 'posts',
     created() {
-      /*this.getAllArticles({page:this.page, limit: 8})*/
       this.getAllArticles({page:this.page, limit: 8})
     },
     data() {

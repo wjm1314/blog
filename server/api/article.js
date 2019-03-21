@@ -1,10 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+const confirmToken = require('../middlewares/confirmToken');
+const secret = require('../../config/index').jwt;
 const DB = require('../db/db_basic');
 const mail = require('../email')
 const ObjectID = require('mongodb').ObjectID;
 const md5 = require('md5-node');
 const crypto = require('crypto'); //node自带的加密模块
+
+//创建token
+const creatToken = (id,name) => {
+  return jwt.sign({
+    id: id,
+    name: name
+  },secret.cert,{expiresIn: '7d'})
+}
 
 const emailForm = (title, name, otherName, message, content, url) => {
   let string = `
@@ -51,15 +62,6 @@ router.get('/tags',(req,res) => {
       }
     });
   })
-  /*DB.find('articles',{isPublish: true},function (err,tags) {
-    var tagsResult = [];
-    console.log(tags);
-    /!*for(var i=0; i<tags.length; i++) {
-      tagsResult.push([...new Set(tags[i].tags)]);
-    }
-    console.log(tagsResult);*!/
-    //res.send(tags);
-  })*/
 });
 //获取某篇文章
 router.get('/article/:aid',(req,res) => {
@@ -145,85 +147,8 @@ router.get('/someArticles',(req,res) => {
     })
   }
 })
-//获取某一篇文章的所有评论
-/*router.get('/comments',(req,res) => {
-  const articleId = JSON.parse(req.query.payload).id;
-  if(req.query.payload.sort === 'date') {
-    DB.__connectDb(function (db) {
-      var result = db.collection('comments').find({articleId: articleId}).sort({date: -1});
-      result.toArray(function (error,comments) {
-        console.log(comments);
-        res.send(comments);
-      })
-    })
-  }else if(req.query.payload.sort === 'like') {
-    DB.__connectDb(function (db) {
-      var result = db.collection('comments').find({articleId: articleId}).sort({date: -1});
-      result.toArray(function (error,comments) {
-        console.log(comments);
-        res.send(comments);
-      })
-    })
-  }else {
-    DB.__connectDb(function (db) {
-      var result = db.collection('comments').find({articleId: articleId});
-      result.toArray(function (error,comments) {
-        console.log(comments);
-        res.send(comments);
-      })
-    })
-  }
-})*/
 //发布评论并通知站长和评论者
 router.post('/comment',(req,res) => {
-  /*DB.__connectDb(function (db) {
-      db.collection('comments').findOne({name: req.body.name, articleId: req.body.articleId},(err,doc) => {
-          console.log(doc);
-        if(doc && doc.address !== req.body.address) {
-          res.status(403).end('用户名已存在')
-        }else if(!doc || doc.address === req.body.address) {
-          const comment = {
-            imgName: req.body.imgName,
-            name: req.body.name,
-            address: req.body.address,
-            date: Date(),
-            content: req.body.content,
-            articleId: req.body.articleId,
-            like: 0
-          }
-          /!*if (/^@(.*):/.test(req.body.content)) {
-            const reviewer = /^@(.*):/.exec(req.body.content)[1]                // 评论者的名字
-            db.collection('comments').findOne({name: reviewer, articleId: req.body.articleId},(err,doc) => {
-              console.log('req.body.curPath: '+ req.body.curPath);
-              const url = 'https://localhost:8080' + req.body.curPath;
-              const replyEmail = doc.address
-              const content =  emailForm('欢迎常来我的博客', reviewer, req.body.name, '回复了你的评论',req.body.content, url)
-              mail.send(replyEmail, '您在FatDong的博客有一条新评论', content, res)
-            })
-          }*!/
-          db.collection('comments').insertOne(comment).then(
-            db.collection('articles').updateOne({aid: ObjectID(req.body.articleId),},{$inc: {comment_n: 1}},(err) => {
-              if(err) {
-                console.log(err);
-              }else {
-                console.log('succeed in updating ---');
-                res.status(200).send('succeed in updating ---');
-              }
-            })
-        ).catch((err) => {console.log(err)});
-/!*
-          db.collection('articles').updateOne({aid: ObjectID(req.body.articleId),},{$inc: {comment_n: 1}},(err) => {
-            if(err) {
-              console.log(err);
-            }else {
-              console.log('succeed in updating ---');
-              res.status(200).send('succeed in updating ---');
-            }
-          });
-*!/
-        }
-      });
-    })*/
   DB.__connectDb(function (db) {
     const comment = {
       imgName: req.body.imgName,
@@ -241,58 +166,6 @@ router.post('/comment',(req,res) => {
         res.status(200).send('succeed in saving new passage.')
       }
     });
-    /*
-            db.collection('articles').updateOne({aid: ObjectID(req.body.articleId),},{$inc: {comment_n: 1}},(err) => {
-              if(err) {
-                console.log(err);
-              }else {
-                console.log('succeed in updating ---');
-                res.status(200).send('succeed in updating ---');
-              }
-            });
-    */
-    /*DB.__connectDb(function (db) {
-      db.collection('comments').findOne({name: req.body.name, articleId: req.body.articleId},(err,doc) => {
-          console.log(doc);
-        if(doc && doc.address !== req.body.address) {
-          res.status(403).end('用户名已存在')
-        }else if(!doc || doc.address === req.body.address) {
-          const comment = {
-            imgName: req.body.imgName,
-            name: req.body.name,
-            address: req.body.address,
-            date: Date(),
-            content: req.body.content,
-            articleId: req.body.articleId,
-            like: 0
-          }
-          if (/^@(.*):/.test(req.body.content)) {
-            const reviewer = /^@(.*):/.exec(req.body.content)[1]                // 评论者的名字
-            db.collection('comments').findOne({name: reviewer, articleId: req.body.articleId},(err,doc) => {
-              console.log('req.body.curPath: '+ req.body.curPath);
-              const url = 'https://localhost:8080' + req.body.curPath;
-              const replyEmail = doc.address
-              const content =  emailForm('欢迎常来我的博客', reviewer, req.body.name, '回复了你的评论',req.body.content, url)
-              mail.send(replyEmail, '您在FatDong的博客有一条新评论', content, res)
-            })
-          }
-          db.collection('comments').insertOne(comment).then(() => {
-            const url = 'https://www.xxx.cn' + req.body.curPath
-            const content = emailForm('MyBlog Message', '站长', req.body.name, '评论了你的文章',req.body.content, url)
-            mail.send('2672666735@qq.com', '您的博客有一条新评论', content, res)
-            res.status(200).send('send email successfully')
-          }).catch(err => { console.log(err) })
-          db.collection('articles').updateOne({aid: ObjectID(req.body.articleId),},{$inc: {comment_n: 1}},(err) => {
-            if(err) {
-              console.log(err);
-            }else {
-              console.log('succeed in updating ---');
-              res.status(200).send('succeed in updating ---');
-            }
-          });
-        }
-      });
-    })*/
   })
 })
 //获取某一篇文章的所有评论
@@ -367,10 +240,11 @@ router.post('/login',(req,res) => {
       if(err) {
         console.log(err);
       }else {
-        //console.log(doc);
+        const token = creatToken(doc._id,doc.name);
         res.status(200).send({
+          id: doc._id,
           name: doc.name,
-          token: doc._id
+          token: token
         });
       }
     });
@@ -396,7 +270,7 @@ router.post('/user',(req,res) => {
   })
 })
 //删除文章
-router.delete('/article/:aid',(req,res) => {
+router.delete('/article/:aid', confirmToken, (req,res) => {
   const aid = req.params.aid;
   /*DB.__connectDb(function (db) {
     db.collection('articles').deleteOne({aid: req.params.aid},(err,data) => {
@@ -436,7 +310,7 @@ router.delete('/article/:aid',(req,res) => {
   })
 })
 //发布文章
-router.post('/article',(req,res) => {
+router.post('/article', confirmToken, (req,res) => {
   const article = {
     comment_n: 0,
     title: req.body.title,
@@ -457,7 +331,7 @@ router.post('/article',(req,res) => {
   })
 })
 //更新文章
-router.patch('/article/:aid',(req,res) => {
+router.patch('/article/:aid', confirmToken, (req,res) => {
   const aid = req.params.aid;
   //console.log(aid);
   const article = {

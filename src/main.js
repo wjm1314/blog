@@ -36,6 +36,24 @@ Vue.filter('toTag', (arr) => {
     return arr.join('，')
   }
 })
+
+//请求拦截器
+axios.interceptors.request.use(function (request) {
+  if(window.localStorage.getItem('token')){
+    request.headers['authorization'] = 'Bearer ' + window.localStorage.getItem('token');
+    //没有request.headers.set()函数
+    /*request.headers.set('authorization','Bearer ' + window.localStorage.getItem('token'));*/
+  }
+  return request;
+})
+//响应拦截器
+axios.interceptors.response.use(function (response) {
+  if(response.status === 401) {
+    store.commit('unset_user');
+    router.push({name: 'login'});
+  }
+  return response;
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

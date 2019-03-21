@@ -56,10 +56,15 @@
     },
     created() {
       this.getAllComments({id: this.$route.params.id});
+      console.log('this.user.name' + this.user.name)
       if(localStorage.token && this.user.name) {
         this.imgName = 'me'
       }else {
         this.imgName = 'reviewer'
+      }
+      if (localStorage.reviewer) {
+        this.address = localStorage['e-mail']
+        this.name = localStorage['reviewer']
       }
     },
     computed: {
@@ -133,8 +138,8 @@
           curPath: this.$route.fullPath
         }).then(() => {
           this.content = '';
-          this.address = '';
-          this.name = '';
+          /*this.address = '';
+          this.name = '';*/
           this.summitFlag = false;
           this.getAllComments({id: this.$route.params.id})
         }).catch((err) => {
@@ -157,7 +162,7 @@
           this.updateLike({id: id, option: 'add'}).then(() => {
             this.likeArr.push(index);
             this.getAllComments({id: this.$route.params.id})
-            localStorage[this.$route.params.id] = JSON.stringify(this.likeArr);
+            localStorage[this.$route.params.id] = JSON.stringify(this.likeArr); //记录访问者的点赞情况
           }).catch((err) => {
             console.log(err);
           })
@@ -285,7 +290,7 @@
     justify-content: flex-end;
     text-align: right;
   a {
-    color: white;
+    color: black;
     margin-right: 0.625rem;
   i.icon-huifu {
     margin-right: 0.3125rem;

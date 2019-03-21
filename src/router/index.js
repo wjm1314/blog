@@ -112,12 +112,10 @@ const router =  new Router({
 
 /*当一个导航触发时，全局前置守卫按照创建顺序调用*/
 router.beforeEach((to, from, next) => {
-  if(to.meta.requireAuth) {
-    if(window.localStorage.getItem('token')) {
-      next();
-    }else {
-      next('/login');
-    }
+  if(Store.state.user.token && to.name === 'login'){
+    next({name: 'posts'});
+  }else if(!Store.state.user.token && to.meta.requireAuth) {
+    next({name: 'login'});
   }else {
     next();
   }
